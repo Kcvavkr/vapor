@@ -20,6 +20,15 @@ final class Routes: RouteCollection {
         builder.get("info") { req in
             return req.description
         }
-
+        builder.get("Hello", ":name"){ request -> String in
+            if let name = request.parameters["name"]?.string{
+                return "Hello, \(name)"
+            }
+            return "error"
+        }
+        builder.get("html"){ request in
+            return try self.view.make("index.html")
+        }
     }
 }
+
